@@ -1,6 +1,5 @@
 var isJSONG = require('./../../support/isJSONG');
 var onNext = 'N';
-var errorToPathValue = require('./errorToPathValue');
 
 /**
  * Takes a path and for every onNext / onError it will attempt
@@ -27,8 +26,7 @@ function convertNoteToJsongOrPV(pathOrPathSet, note, isPathSet) {
 
     // Convert the error to a pathValue.
     else {
-        incomingJSONGOrPathValues =
-            errorToPathValue(note.error, pathOrPathSet);
+        throw note.error;
     }
 
     // If its jsong we may need to optionally attach the
