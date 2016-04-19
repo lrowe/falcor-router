@@ -31,7 +31,6 @@ module.exports = function followReference(cacheRoot, ref, maxRefFollow) {
         // Show stopper exception.  This route is malformed.
         if (type && type === $ref && depth + 1 < length) {
             var err = new Error(errors.innerReferences);
-            err.throwToNext = true;
             throw err;
         }
 

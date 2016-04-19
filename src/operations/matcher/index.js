@@ -47,7 +47,6 @@ module.exports = function matcher(rst) {
         // call.  Therefore we are going to throw an informative error.
         if (method === call && matched.length === 0) {
             var err = new CallNotFoundError();
-            err.throwToNext = true;
 
             throw err;
         }

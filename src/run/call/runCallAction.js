@@ -30,14 +30,9 @@ function runCallAction(matchAndPath, routerInstance, callPath, args,
         out = Observable.
             defer(function() {
             var next;
-                try {
-                    next = match.
-                        action.call(
-                            routerInstance, matchedPath, args, suffixes, paths);
-                } catch (e) {
-                    e.throwToNext = true;
-                    throw e;
-                }
+                next = match.
+                    action.call(
+                        routerInstance, matchedPath, args, suffixes, paths);
                 return outputToObservable(next).
                     toArray();
             }).
@@ -77,7 +72,6 @@ function runCallAction(matchAndPath, routerInstance, callPath, args,
                         if (!r.paths) {
                             var err =
                                 new CallRequiresPathsError();
-                            err.throwToNext = true;
                             throw err;
                         }
                     }
@@ -174,13 +168,6 @@ function runCallAction(matchAndPath, routerInstance, callPath, args,
                 }
 
                 return callOutput;
-            }).
-
-            // When call has an error it needs to be propagated to the next
-            // level instead of onCompleted'ing
-            do(null, function(e) {
-                e.throwToNext = true;
-                throw e;
             });
     } else {
         out = match.action.call(routerInstance, matchAndPath.path);
